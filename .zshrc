@@ -30,6 +30,9 @@ alias openrsync='/opt/homebrew/bin/rsync'
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# houdini env
+export HOUDINI_PREF='/Users/izzy/Library/Preferences/houdini/21.0/'
+
 # blender
 alias blender='/Applications/Blender.app/Contents/MacOS/Blender'
 
