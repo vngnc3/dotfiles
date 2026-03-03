@@ -1,0 +1,12 @@
+Houdini works fine without the MMB on MacOS, you need to add the following to the “houdini.env” configuration file in “~/Library/Preferences/Houdini/17.0/”:
+
+# HOUDINI MIDDLE MOUSE PAN ENABLE/DISABLE
+# Tuesday 13th November 2018
+# Source: Houdini Forum Topic “Middle Mouse on Macbook” 14th Jun 2018
+# https://www.sidefx.com/forum/topic/56426/?page=1#post-252948 [www.sidefx.com] (penultimate post)
+# System Preferences > Trackpad > Point & Click > Secondary Click set to:
+# Click in bottom left corner or Click in bottom right corner.
+
+HOUDINI_MMB_PAN = 0
+
+I have included my comments (the lines preceded by a #). 
