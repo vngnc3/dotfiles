@@ -3,6 +3,9 @@ if [ -f "$HOME/.zshenv" ]; then
     source "$HOME/.zshenv"
 fi 
 
+# say whisper alias 
+alias ws='say -v whisper'
+
 # ls with highlighting
 alias ls='ls -G'
 
