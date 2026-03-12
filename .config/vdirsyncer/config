@@ -1,0 +1,51 @@
+[general]
+status_path = "~/.config/vdirsyncer/status"
+
+[pair gmail_primary]
+a = "gmail_primary_remote"
+b = "gmail_primary_local"
+collections = ["from a", "from b"]
+
+[storage gmail_primary_remote]
+type = "caldav"
+url = "https://www.google.com/calendar/dav/info@xxxxizzy.xyz/events/" 
+username = "info@xxxxizzy.xyz"
+password = ""
+
+[storage gmail_primary_local]
+type = "filesystem"
+path = "~/.local/share/calendars/gmail/primary"
+fileext = ".ics"
+
+[pair gmail_mf]
+a = "gmail_mf_remote"
+b = "gmail_mf_local"
+collections = ["from a", "from b"]
+
+[storage gmail_mf_remote]
+type = "caldav"
+url = "https://www.google.com/calendar/dav/<CALENDAR_ID>@group.calendar.google.com/events/" 
+username = "info@xxxxizzy.xyz"
+password = ""
+
+[storage gmail_mf_local]
+type = "filesystem"
+path = "~/.local/share/calendars/gmail/mf"
+fileext = ".ics"
+
+[pair gmail_bmth]
+a = "gmail_bmth_remote"
+b = "gmail_bmth_local"
+collections = ["from a", "from b"]
+
+[storage gmail_bmth_remote]
+type = "caldav"
+url = "https://www.google.com/calendar/dav/<CALENDAR_ID>@group.calendar.google.com/events/" 
+username = "info@xxxxizzy.xyz"
+password = ""
+
+[storage gmail_bmth_local]
+type = "filesystem"
+path = "~/.local/share/calendars/gmail/bmth"
+fileext = ".ics"
+
