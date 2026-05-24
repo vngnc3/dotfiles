@@ -9,6 +9,9 @@ alias ws='say -v whisper'
 # ls with highlighting
 alias ls='ls -G'
 
+# custom scripts
+export PATH="$HOME/Work/dotfiles/utils/:$PATH"
+
 # icloud path
 export ICLOUD="$HOME/Library/Mobile Documents/com~apple~CloudDocs/"
 
