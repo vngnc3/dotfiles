@@ -54,7 +54,7 @@ ffmpeg -start_number "$START_NUM" \
        -framerate "$FRAMERATE" \
        -i "$PATTERN" \
        -c:v h264_videotoolbox \
-       -q:v 60 \
+       -q:v 67 \
        -profile:v high \
        -color_range 2 \
        -pix_fmt yuv420p \
