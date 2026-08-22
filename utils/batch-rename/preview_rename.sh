@@ -1,16 +1,19 @@
 #!/bin/bash
 #
-# Preview EXR batch rename - shows what files would be renamed to
-# Usage: ./preview_rename.sh [start_number] [padding]
+# Preview batch rename - shows what files would be renamed to
+# Usage: ./preview_rename.sh [start_number] [padding] [extension]
 #
 # Arguments:
 #   start_number - number to start sequential naming from (default: 1)
 #   padding      - minimum digit width for zero-padding (default: auto)
+#   extension    - optional extension filter (e.g., exr, jpg) - if omitted, all files are processed
 #
 # Examples:
-#   ./preview_rename.sh              # Preview with default settings
+#   ./preview_rename.sh              # Preview all files with default settings
 #   ./preview_rename.sh 1001         # Start numbering from 1001
 #   ./preview_rename.sh 1 4          # Start from 1 with 4-digit padding (0001, 0002...)
+#   ./preview_rename.sh 1 4 exr      # Preview only .exr files
+#   ./preview_rename.sh 1 0 jpg      # Preview only .jpg files with auto padding
 
 set -e
 
@@ -21,15 +24,46 @@ cd "$SCRIPT_DIR"
 # Parse arguments
 START_NUM=${1:-1}
 PADDING=${2:-0}
+EXT_FILTER=${3:-}
 
-# Find all EXR files and sort numerically by filename
+# Normalize extension filter (strip leading dot if present)
+if [ -n "$EXT_FILTER" ]; then
+    EXT_FILTER="${EXT_FILTER#.}"
+fi
+
+# Find all files (agnostic to extension) and sort version-numerically
+# Excludes: directories, hidden files, and the scripts themselves
 files=()
-while IFS= read -r file; do
-    files+=("$file")
-done < <(ls -1 *.exr 2>/dev/null | sort -V)
+SELF_NAME="$(basename "${BASH_SOURCE[0]}")"
+for f in *; do
+    # Must be a regular file
+    [ -f "$f" ] || continue
+    # Skip hidden files
+    [[ "$f" == .* ]] && continue
+    # Skip scripts themselves
+    [[ "$f" == "$SELF_NAME" ]] && continue
+    [[ "$f" == "preview_rename.sh" ]] && continue
+    [[ "$f" == "rename.sh" ]] && continue
+    [[ "$f" == "rename_exr.sh" ]] && continue
+    # Optional extension filter
+    if [ -n "$EXT_FILTER" ]; then
+        [[ "$f" == *."$EXT_FILTER" ]] || continue
+    fi
+    files+=("$f")
+done
+
+# Sort version-numerically (handles 1, 2, 10 correctly)
+if [ ${#files[@]} -gt 0 ]; then
+    IFS=$'\n' files=($(printf "%s\n" "${files[@]}" | sort -V))
+    unset IFS
+fi
 
 if [ ${#files[@]} -eq 0 ]; then
-    echo "No EXR files found in this directory."
+    if [ -n "$EXT_FILTER" ]; then
+        echo "No .$EXT_FILTER files found in this directory."
+    else
+        echo "No files found in this directory."
+    fi
     exit 1
 fi
 
@@ -45,12 +79,19 @@ if [ "$PADDING" -eq 0 ]; then
 fi
 
 echo "========================================"
-echo "EXR Batch Rename Preview"
+echo "Batch Rename Preview"
 echo "========================================"
 echo ""
-echo "Found ${#files[@]} EXR file(s)"
+if [ -n "$EXT_FILTER" ]; then
+    echo "Found ${#files[@]} .$EXT_FILTER file(s)"
+else
+    echo "Found ${#files[@]} file(s)"
+fi
 echo "Start number: $START_NUM"
 echo "Zero-padding: $PADDING digits"
+if [ -n "$EXT_FILTER" ]; then
+    echo "Extension filter: .$EXT_FILTER"
+fi
 echo ""
 echo "Rename plan:"
 echo "----------------------------------------"
@@ -58,12 +99,16 @@ echo "----------------------------------------"
 # Generate preview
 counter=$START_NUM
 for file in "${files[@]}"; do
-    # Extract extension
-    ext="${file##*.}"
+    # Extract extension (preserve original, handle files without extension)
+    if [[ "$file" == *.* ]]; then
+        ext=".${file##*.}"
+    else
+        ext=""
+    fi
 
     # Format new filename with zero-padding
     new_num=$(printf "%0${PADDING}d" "$counter")
-    new_name="${new_num}.${ext}"
+    new_name="${new_num}${ext}"
 
     # Show rename operation
     if [ "$file" == "$new_name" ]; then
@@ -77,5 +122,10 @@ done
 
 echo "----------------------------------------"
 echo ""
-echo "To execute this rename, run: ./rename_exr.sh $START_NUM $PADDING"
+# Point to the generic rename script (with optional extension arg)
+if [ -n "$EXT_FILTER" ]; then
+    echo "To execute this rename, run: ./rename.sh $START_NUM $PADDING $EXT_FILTER"
+else
+    echo "To execute this rename, run: ./rename.sh $START_NUM $PADDING"
+fi
 echo ""
