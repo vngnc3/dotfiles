@@ -30,26 +30,29 @@ eval "$(pyenv init -)"
 alias openrsync='/opt/homebrew/bin/rsync'
 
 # bun completions
-[ -s "/Users/izzy/.bun/_bun" ] && source "/Users/izzy/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # houdini env
-export HOUDINI_PREF='/Users/izzy/Library/Preferences/houdini/22.0/'
+export HOUDINI_PREF="$HOME/Library/Preferences/houdini/22.0/"
 
 # blender
 alias blender='/Applications/Blender.app/Contents/MacOS/Blender'
 
 # llama.cpp config
-alias llama-serve-hermes-4='llama-server --model /Users/izzy/models/llama-cpp/Mungert_Hermes-4-14B-GGUF_Hermes-4-14B-bf16.gguf --alias hermes-4 --jinja --ctx-size 40960'
+alias llama-serve-hermes-4='llama-server --model $HOME/models/llama-cpp/Mungert_Hermes-4-14B-GGUF_Hermes-4-14B-bf16.gguf --alias hermes-4 --jinja --ctx-size 40960'
 
 # yt-dlp 
 alias ytdl-audio='yt-dlp -x --audio-format mp3 --audio-quality 0 --user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"'
 
+# nowplaying-cli
+alias np='nowplaying-cli'
+
 # pnpm
-export PNPM_HOME="/Users/izzy/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -112,3 +115,6 @@ bindkey '^[[1;6C' select-right-word   # Shift+Ctrl+Right
 bindkey '^[[1;10D' select-to-start    # Shift+Cmd+Left (macOS)
 bindkey '^[[1;10C' select-to-end      # Shift+Cmd+Right (macOS)
 
+
+# Hermes Agent — ensure ~/.local/bin is on PATH
+export PATH="$HOME/.local/bin:$PATH"

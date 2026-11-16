@@ -1,1 +1,4 @@
-.DS_Store 
+.DS_Store
+
+# Local Crush state (history, logs, credentials)
+.crush/

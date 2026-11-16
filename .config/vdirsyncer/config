@@ -8,8 +8,8 @@ collections = ["from a", "from b"]
 
 [storage gmail_primary_remote]
 type = "caldav"
-url = "https://www.google.com/calendar/dav/info@xxxxizzy.xyz/events/" 
-username = "info@xxxxizzy.xyz"
+url = "https://www.google.com/calendar/dav/<EMAIL>/events/" 
+username = "<EMAIL>"
 password = ""
 
 [storage gmail_primary_local]
@@ -25,7 +25,7 @@ collections = ["from a", "from b"]
 [storage gmail_mf_remote]
 type = "caldav"
 url = "https://www.google.com/calendar/dav/<CALENDAR_ID>@group.calendar.google.com/events/" 
-username = "info@xxxxizzy.xyz"
+username = "<EMAIL>"
 password = ""
 
 [storage gmail_mf_local]
@@ -41,7 +41,7 @@ collections = ["from a", "from b"]
 [storage gmail_bmth_remote]
 type = "caldav"
 url = "https://www.google.com/calendar/dav/<CALENDAR_ID>@group.calendar.google.com/events/" 
-username = "info@xxxxizzy.xyz"
+username = "<EMAIL>"
 password = ""
 
 [storage gmail_bmth_local]
