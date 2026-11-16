@@ -1,0 +1,24 @@
+# Ghostty configuration (macOS)
+# Copy to: ~/Library/Application Support/com.mitchellh.ghostty/config
+#
+# Theme "Scarlet Protocol" ships with Ghostty, so no theme file is needed.
+# Font "Berkeley Mono" is a commercial font and must be installed manually;
+# it is not included in this repo.
+
+gtk-single-instance = desktop
+scrollback-limit = 100000000
+shell-integration = detect
+shell-integration-features = cursor,sudo,title
+font-family = Berkeley Mono
+theme = Scarlet Protocol
+window-height = 48
+window-width = 160
+window-padding-x = 20
+window-padding-y = 20
+window-padding-balance = true
+window-padding-color = extend
+background-opacity = 0.78
+background-blur = 24
+unfocused-split-opacity = 0.8
+selection-clear-on-copy = false
+selection-clear-on-typing = true
